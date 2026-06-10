@@ -1,0 +1,91 @@
+{
+  "name": "Default",
+
+  "notes": {
+    "texture": "notes/default/arrow",
+    "scale": 0.7,
+
+    "left": "purple",
+    "down": "blue",
+    "up": "green",
+    "right": "red"
+  },
+
+  "strums": {
+    "texture": "notes/default/arrow",
+    "scale": 0.7,
+    "offsets": [
+        22.5, 
+        30
+       ],
+    "left": {
+      "static": "arrowLEFT0",
+      "press": "left press0",
+      "confirm": "left confirm0",
+      "confirmLoop": "loop left confirm0"
+    },
+
+    "down": {
+      "static": "arrowDOWN0",
+      "press": "down press0",
+      "confirm": "down confirm0",
+      "confirmLoop": "loop down confirm0"
+    },
+
+    "up": {
+      "static": "arrowUP0",
+      "press": "up press0",
+      "confirm": "up confirm0",
+      "confirmLoop": "loop up confirm0"
+    },
+
+    "right": {
+      "static": "arrowRIGHT0",
+      "press": "right press0",
+      "confirm": "right confirm0",
+      "confirmLoop": "loop right confirm0"
+    }
+  },
+
+  "holds": {
+    "texture": "notes/default/hold",
+    "animType": "JSON",
+    "scale": 0.7,
+
+    "left": {
+      "body": "purple hold piece",
+      "end": "pruple end hold",
+      "animation": "purple hold"
+    },
+
+    "down": {
+      "body": "blue hold piece",
+      "end": "blue hold end",
+      "animation": "blue hold"
+    },
+
+    "up": {
+      "body": "green hold piece",
+      "end": "green hold end",
+      "animation": "green hold"
+    },
+
+    "right": {
+      "body": "red hold piece",
+      "end": "red hold end",
+      "animation": "red hold"
+    }
+  },
+
+  "splashes": {
+    "enabled": true,
+    "animType": "Sparrow",
+    "texture": "notes/default/Splashes",
+    "alpha": 0.8,
+
+    "left": "splashPurple",
+    "down": "splashBlue",
+    "up": "splashGreen",
+    "right": "splashRed"
+  }
+}
