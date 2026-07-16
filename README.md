@@ -2,7 +2,7 @@
 
 # FNF-Lime-Engine
 Essa É a primeira Engine De FNF Brasileira.
-A Lime Engine É Uma Engine de FNF Legacy que usa o mesmo Haxe Class do V-Slice.
+A Lime Engine É Uma Engine de FNF Legacy que usa A Lib Polymod.
 
 
 
