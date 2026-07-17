@@ -4,7 +4,7 @@
 Essa É a primeira Engine De FNF Brasileira.
 A Lime Engine É Uma Engine de FNF Legacy que é focada na simplicidade e pouco esforço para fazer o seu mod com exelentes performances e quase sem limites, graças a lib polymod, que fornece o .hxc (Haxe Scripted Class) Não sabe programar hxc? leia abaixo, e aprenda.
 
-A Lime Engine utiliza o formato `.hxc` (Haxe Scripted Class), que segue o mesmo padrão oficial da biblioteca Polymod. ou seja, se você já fez um mod pra v-slice, você já pode fazer TUDO no seu mod de lime engine, sem precisar da recompilação do código-fonte, mas mesmo assim a recompilação continua 100% opçional
+O Lime Engine utiliza o formato `.hxc` (Haxe Scripted Class), que segue o mesmo padrão oficial da biblioteca Polymod. ou seja, se você já fez um mod pra v-slice, você já pode fazer TUDO no seu mod de lime engine, sem precisar da recompilação do código-fonte, mas mesmo assim a recompilação continua 100% opçional
 
 ## 📌 Estrutura Básica de um Script
 
