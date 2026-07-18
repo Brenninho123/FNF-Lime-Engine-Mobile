@@ -53,10 +53,11 @@ class ExemploScript extends Module
 2. **Uso do `super`:** Sempre chame as funções originais usando `super.nomeDaFuncao()` para garantir que o comportamento padrão do jogo não quebre.
 3. **Tipagem:** O Haxe aceita tipagem estática (ex: `elapsed:Float`), o que ajuda a evitar erros bobos de digitação e melhora a performance.
 
+Se você não conseguiu aprender (o que eu acho que provavelmente aconteceu) Não Esquenta, visite a nossa [WIKI]()e aprenda (De Verdade).
 
-A lime engine foi feita no HaxeFlixel;
+A lime engine foi feita no HaxeFlixel
 
 
-O Novo FNF V-slice também é legal, porque não Joga?
+O Novo FNF V-slice também é legal, porque não [Joga](https://ninja-muffin24.itch.io/funkin/download/eyJpZCI6NzkyNzc4LCJleHBpcmVzIjoxNzg0MzMzMzU0fQ%3d%3d%2e939%2ffqMfdkGneiU%2fwR%2bVM74svoo%3d)?
 
-Lime Engine por GlitchMaster & JoãoBanana, Friday Night Funkin' por ninjamuffin99
+Lime Engine por [GlitchMaster](https://github.com/glitch781212master-mist) & [JoãoBanana](https://github.com/JoaoBanana78060-pao), Friday Night Funkin' por ninjamuffin99
