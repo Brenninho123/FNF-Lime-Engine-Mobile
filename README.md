@@ -1,4 +1,5 @@
-<img width="1536" height="864" alt="Lime Engine Logo" src="https://github.com/user-attachments/assets/758cc280-8202-4261-b40a-701fd9a08aff" />
+<img width="1229" height="691" alt="logo" src="https://github.com/user-attachments/assets/84ea90f0-5bbc-448a-b005-9be53fc3bc25" />
+
 
 # FNF-Lime-Engine
 Essa É a primeira Engine De FNF Brasileira.
