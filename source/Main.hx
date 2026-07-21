@@ -1,4 +1,3 @@
-
 package;
 
 import openfl.display.Sprite;
@@ -9,10 +8,6 @@ import flixel.FlxGame;
 
 import states.TitleState;
 import mobile.backend.StorageUtil;
-
-#if android
-import lime.system.System as LimeSystem;
-#end
 
 class Main extends Sprite
 {
