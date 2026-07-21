@@ -78,9 +78,4 @@
 
 	<config:ios team-identifier="" if="ios" />
 
-	<icon path="art/icon180.png" size="180" if="ios" />
-	<icon path="art/icon120.png" size="120" if="ios" />
-	<icon path="art/icon167.png" size="167" if="ios" />
-	<icon path="art/icon152.png" size="152" if="ios" />
-
 </project>
