@@ -52,6 +52,7 @@ jobs:
           haxelib install flxanimate --quiet
           haxelib install polymod --quiet
           haxelib install hxvlc --quiet
+          haxelib install extension-androidtools --quiet
           haxelib run lime setup lime -y
           haxelib run lime setup openfl -y
           haxelib run lime setup flixel -y
