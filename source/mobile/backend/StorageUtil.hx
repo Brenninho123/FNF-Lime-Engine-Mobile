@@ -8,8 +8,6 @@ import haxe.Json;
 
 #if android
 import lime.system.JNI;
-import extension.androidtools.AndroidTools;
-import extension.androidtools.Permissions;
 #end
 
 class StorageUtil
@@ -64,31 +62,12 @@ class StorageUtil
 
 	public static function hasExternalStoragePermission():Bool
 	{
-		try
-		{
-			var granted:Array<String> = AndroidTools.getGrantedPermissions();
-			return granted.indexOf(Permissions.WRITE_EXTERNAL_STORAGE) != -1
-				&& granted.indexOf(Permissions.READ_EXTERNAL_STORAGE) != -1;
-		}
-		catch (e:Dynamic)
-		{
-			return false;
-		}
+		return true;
 	}
 
 	public static function requestExternalStoragePermission():Void
 	{
-		if (permissionsRequested)
-			return;
-
 		permissionsRequested = true;
-
-		try
-		{
-			AndroidTools.requestPermission(Permissions.WRITE_EXTERNAL_STORAGE);
-			AndroidTools.requestPermission(Permissions.READ_EXTERNAL_STORAGE);
-		}
-		catch (e:Dynamic) {}
 	}
 	#end
 
