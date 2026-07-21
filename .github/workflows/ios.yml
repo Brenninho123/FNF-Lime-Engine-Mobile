@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-15
 
     steps:
       - name: Checkout repository
@@ -20,14 +20,20 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Setup Haxe
-        uses: krdlab/setup-haxe@v1
-        with:
-          haxe-version: 4.3.7
+      - name: Install Haxe 4.3.7 (arm64)
+        run: |
+          curl -L -o haxe.tar.gz https://github.com/HaxeFoundation/haxe/releases/download/4.3.7/haxe-4.3.7-osx.tar.gz
+          tar -xzf haxe.tar.gz
+          sudo mkdir -p /usr/local/lib/haxe
+          sudo cp -R haxe-4.3.7-osx/* /usr/local/lib/haxe/
+          sudo ln -sf /usr/local/lib/haxe/haxe /usr/local/bin/haxe
+          sudo ln -sf /usr/local/lib/haxe/haxelib /usr/local/bin/haxelib
+          mkdir -p ~/haxelib
+          haxelib setup ~/haxelib
+          haxe -version
 
       - name: Install Haxelib dependencies
         run: |
-          haxelib setup ~/haxelib
           haxelib install lime --quiet
           haxelib install openfl --quiet
           haxelib install flixel --quiet
