@@ -1,18 +1,14 @@
 package backend;
 
-import flixel.graphics.frames.FlxFrame.FlxFrameAngle;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.graphics.FlxGraphic;
 import flixel.math.FlxRect;
 
 import openfl.display.BitmapData;
-import openfl.display3D.textures.RectangleTexture;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 import openfl.system.System;
-import openfl.geom.Rectangle;
 
-import lime.utils.Assets;
 import flash.media.Sound;
 
 import haxe.Json;
@@ -113,32 +109,10 @@ class Paths
 			return StorageUtil.isDirectory(Path.join([dir, entry]));
 		});
 	}
-
-	static function getModDirectories():Array<String>
-	{
-		var list:Array<String> = [];
-		if (currentLevel != null && currentLevel.length > 0)
-			list.push(currentLevel);
-		return list;
-	}
-
-	static function modFolders(key:String):String
-	{
-		if (currentLevel != null)
-		{
-			var levelPath:String = mods(currentLevel + '/' + key);
-			if (fileExists(levelPath, false))
-				return levelPath;
-		}
-		return null;
-	}
 	#end
 
 	public static function file(file:String, type:AssetType = null, ?library:String = null):String
 	{
-		if (type == null)
-			type = TEXT;
-
 		if (library != null)
 			return getLibraryPath(file, library);
 
@@ -146,11 +120,6 @@ class Paths
 	}
 
 	inline static public function getLibraryPath(file:String, library:String = 'shared'):String
-	{
-		return getLibraryPathForce(file, library);
-	}
-
-	inline static function getLibraryPathForce(file:String, library:String):String
 	{
 		return 'assets/$library/$file';
 	}
