@@ -28,11 +28,12 @@ jobs:
           echo "Extracted to: $HAXE_DIR"
           sudo mkdir -p /usr/local/lib/haxe
           sudo cp -R "$HAXE_DIR"/* /usr/local/lib/haxe/
+          sudo find /usr/local/lib/haxe -maxdepth 1 -name "*.dylib" -exec cp {} /usr/local/lib/ \;
           sudo ln -sf /usr/local/lib/haxe/haxe /usr/local/bin/haxe
           sudo ln -sf /usr/local/lib/haxe/haxelib /usr/local/bin/haxelib
           mkdir -p ~/haxelib
           haxelib setup ~/haxelib
-          haxe -version
+          haxe arm64
 
       - name: Install Haxelib dependencies
         run: |
