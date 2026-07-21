@@ -64,7 +64,8 @@
 	<icon path="art/icon64.png" size='64'/>
 	<icon path="art/iconOG.png" />
 
-	<config:android install-location="auto" gradle-arg="-Xmx4G" minimum-sdk-version="21" target-sdk-version="33" compile-sdk-version="33" architectures="armv7,arm64,x86_64" extension="androidx.appcompat:appcompat:1.6.1" />
+	<config:android install-location="auto" gradle-arg="-Xmx4G" minimum-sdk-version="21" target-sdk-version="33" compile-sdk-version="33" architectures="armv7,arm64,x86_64" />
+	<dependency name="androidx.appcompat:appcompat:1.6.1" if="android" />
 	<certificate path="fnf.keystore" password="123456" alias="fnf" alias-password="123456" if="android" />
 
 	<permission name="android.permission.INTERNET" if="android" />
