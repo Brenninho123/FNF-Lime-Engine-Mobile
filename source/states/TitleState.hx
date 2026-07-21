@@ -3,7 +3,8 @@ package states;
 import flixel.FlxState;
 import flixel.FlxSprite;
 import flixel.FlxG;
-import flxanimate.FlxAnimatedSprite;
+import flixel.graphics.frames.FlxAtlasFrames;
+import flixel.util.FlxColor;
 
 #if mobile
 import flixel.input.touch.FlxTouch;
@@ -11,9 +12,9 @@ import flixel.input.touch.FlxTouch;
 
 class TitleState extends FlxState
 {
-	var logo:FlxAnimatedSprite;
-	var gfDanceTitle:FlxAnimatedSprite;
-	var titleEnter:FlxAnimatedSprite;
+	var logo:FlxSprite;
+	var gfDanceTitle:FlxSprite;
+	var titleEnter:FlxSprite;
 	var gfDanceTitlebg:FlxSprite;
 
 	var pressedEnter:Bool = false;
@@ -22,26 +23,27 @@ class TitleState extends FlxState
 	{
 		super.create();
 
-		gfDanceTitlebg = new FlxSprite(0, 0, "assets/images/menus/titlescreen/gfDanceTitlebg.png");
+		gfDanceTitlebg = new FlxSprite();
+		gfDanceTitlebg.loadGraphic("assets/images/menus/titlescreen/gfDanceTitlebg.png");
 		add(gfDanceTitlebg);
 
-		gfDanceTitle = new FlxAnimatedSprite(0, 0);
-		gfDanceTitle.loadGraphic("assets/images/menus/titlescreen/gfDance.png", FlxAnimatedSprite.sparrowAtlas, 1, true, 0, 0);
-		gfDanceTitle.addAnimation("gfDance", [0, 1, 2, 3, 4, 5], 12, true);
-		gfDanceTitle.play("gfDance");
+		gfDanceTitle = new FlxSprite();
+		gfDanceTitle.frames = FlxAtlasFrames.fromSparrow("assets/images/menus/titlescreen/gfDance.png", "assets/images/menus/titlescreen/gfDance.xml");
+		gfDanceTitle.animation.addByPrefix("gfDance", "gfDance", 12, true);
+		gfDanceTitle.animation.play("gfDance");
 		add(gfDanceTitle);
 
-		logo = new FlxAnimatedSprite(0, 0);
-		logo.loadGraphic("assets/images/menus/titlescreen/logo.png", FlxAnimatedSprite.sparrowAtlas, 1, true, 0, 0);
-		logo.addAnimation("logo bumpin", [0, 1, 2, 3, 4, 5], 12, true);
-		logo.play("logo bumpin");
+		logo = new FlxSprite();
+		logo.frames = FlxAtlasFrames.fromSparrow("assets/images/menus/titlescreen/logo.png", "assets/images/menus/titlescreen/logo.xml");
+		logo.animation.addByPrefix("logo bumpin", "logo bumpin", 12, true);
+		logo.animation.play("logo bumpin");
 		add(logo);
 
-		titleEnter = new FlxAnimatedSprite(0, 0);
-		titleEnter.loadGraphic("assets/images/menus/titlescreen/titleEnter.png", FlxAnimatedSprite.sparrowAtlas, 1, true, 0, 0);
-		titleEnter.addAnimation("ENTER PRESSED", [0, 1, 2, 3, 4, 5], 12, true);
-		titleEnter.addAnimation("ENTER FREEZE", [0], 12, true);
-		titleEnter.play("ENTER FREEZE");
+		titleEnter = new FlxSprite();
+		titleEnter.frames = FlxAtlasFrames.fromSparrow("assets/images/menus/titlescreen/titleEnter.png", "assets/images/menus/titlescreen/titleEnter.xml");
+		titleEnter.animation.addByPrefix("ENTER PRESSED", "ENTER PRESSED", 12, true);
+		titleEnter.animation.addByPrefix("ENTER FREEZE", "ENTER FREEZE", 12, true);
+		titleEnter.animation.play("ENTER FREEZE");
 		add(titleEnter);
 	}
 
@@ -52,7 +54,7 @@ class TitleState extends FlxState
 		if (!pressedEnter && checkEnterInput())
 		{
 			pressedEnter = true;
-			titleEnter.play("ENTER PRESSED");
+			titleEnter.animation.play("ENTER PRESSED");
 			onEnterPressed();
 		}
 	}
