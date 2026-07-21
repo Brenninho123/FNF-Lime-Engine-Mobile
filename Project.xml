@@ -44,6 +44,7 @@
 
 	<haxelib name="polymod" if="POLYSCRIPT_ALLOWED" />
 	<haxelib name="hxvlc" if="VIDEOS_ALLOWED" />
+	<haxelib name="extension-androidtools" if="android" />
 
 	<haxedef name="FLX_NO_HEALTH" />
 
