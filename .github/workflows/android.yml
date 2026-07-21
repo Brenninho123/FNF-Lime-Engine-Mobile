@@ -57,6 +57,11 @@ jobs:
           haxelib run lime setup openfl -y
           haxelib run lime setup flixel -y
 
+      - name: Dump extension-androidtools source
+        run: |
+          find ~/haxelib -iname "*androidtools*" -maxdepth 2
+          find ~/haxelib -ipath "*androidtools*" -name "*.hx" -exec echo "=== {} ===" \; -exec cat {} \;
+
       - name: Configure Android build tools
         run: |
           haxelib run lime config ANDROID_SDK $ANDROID_SDK_ROOT -y
