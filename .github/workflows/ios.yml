@@ -1,0 +1,83 @@
+name: iOS Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-14
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.3.7
+
+      - name: Install Haxelib dependencies
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install lime --quiet
+          haxelib install openfl --quiet
+          haxelib install flixel --quiet
+          haxelib install flixel-tools --quiet
+          haxelib install flixel-addons --quiet
+          haxelib install hxcs --quiet
+          haxelib install tjson --quiet
+          haxelib install thx.core --quiet
+          haxelib install thx.semver --quiet
+          haxelib install format --quiet
+          haxelib install jsonpath --quiet
+          haxelib install flxanimate --quiet
+          haxelib install polymod --quiet
+          haxelib install hxvlc --quiet
+          haxelib run lime setup lime -y
+          haxelib run lime setup openfl -y
+          haxelib run lime setup flixel -y
+
+      - name: Setup iOS target
+        run: haxelib run lime setup ios -y
+
+      - name: Build iOS Xcode project
+        run: haxelib run lime build ios -release -nosign
+
+      - name: Build unsigned .app via xcodebuild
+        run: |
+          cd export/release/ios/build
+          xcodebuild -project *.xcodeproj \
+            -scheme "$(xcodebuild -project *.xcodeproj -list | awk '/Schemes:/{getline; print; exit}' | xargs)" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build
+
+      - name: Locate build output
+        id: locate_app
+        run: |
+          APP_PATH=$(find export/release/ios/build -type d -name "*.app" | head -n 1)
+          echo "app_path=$APP_PATH" >> $GITHUB_OUTPUT
+
+      - name: Package as IPA-ready archive
+        run: |
+          mkdir -p Payload
+          cp -R "${{ steps.locate_app.outputs.app_path }}" Payload/
+          zip -r unsigned.ipa Payload
+
+      - name: Upload IPA artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: unsigned.ipa
+          if-no-files-found: error
