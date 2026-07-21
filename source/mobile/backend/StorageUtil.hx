@@ -2,14 +2,14 @@ package mobile.backend;
 
 import sys.FileSystem;
 import sys.io.File;
-import sys.io.FileOutput;
-import sys.io.FileInput;
 import haxe.io.Bytes;
 import haxe.io.Path;
 import haxe.Json;
 
 #if android
 import lime.system.JNI;
+import extension.androidtools.AndroidTools;
+import extension.androidtools.Permissions;
 #end
 
 class StorageUtil
@@ -41,8 +41,6 @@ class StorageUtil
 
 	#if android
 	private static var _getExternalStorageDirectoryJNI:Dynamic;
-	private static var _requestPermissionJNI:Dynamic;
-	private static var _hasPermissionJNI:Dynamic;
 
 	private static function getAndroidExternalPath():String
 	{
@@ -68,19 +66,13 @@ class StorageUtil
 	{
 		try
 		{
-			if (_hasPermissionJNI == null)
-			{
-				_hasPermissionJNI = JNI.createStaticMethod(
-					"org/haxe/extension/ExtensionPermission",
-					"checkPermission",
-					"(Ljava/lang/String;)Z"
-				);
-			}
-			return _hasPermissionJNI("android.permission.WRITE_EXTERNAL_STORAGE");
+			var granted:Array<String> = AndroidTools.getGrantedPermissions();
+			return granted.indexOf(Permissions.WRITE_EXTERNAL_STORAGE) != -1
+				&& granted.indexOf(Permissions.READ_EXTERNAL_STORAGE) != -1;
 		}
 		catch (e:Dynamic)
 		{
-			return true;
+			return false;
 		}
 	}
 
@@ -93,16 +85,8 @@ class StorageUtil
 
 		try
 		{
-			if (_requestPermissionJNI == null)
-			{
-				_requestPermissionJNI = JNI.createStaticMethod(
-					"org/haxe/extension/ExtensionPermission",
-					"requestPermission",
-					"(Ljava/lang/String;)V"
-				);
-			}
-			_requestPermissionJNI("android.permission.WRITE_EXTERNAL_STORAGE");
-			_requestPermissionJNI("android.permission.READ_EXTERNAL_STORAGE");
+			AndroidTools.requestPermission(Permissions.WRITE_EXTERNAL_STORAGE);
+			AndroidTools.requestPermission(Permissions.READ_EXTERNAL_STORAGE);
 		}
 		catch (e:Dynamic) {}
 	}
@@ -390,26 +374,5 @@ class StorageUtil
 		{
 			return false;
 		}
-	}
-
-	public static function getAvailableSpace():Float
-	{
-		#if android
-		try
-		{
-			var statFsClass = JNI.createStaticMethod(
-				"org/haxe/extension/ExtensionStorage",
-				"getAvailableSpace",
-				"()J"
-			);
-			return statFsClass();
-		}
-		catch (e:Dynamic)
-		{
-			return -1;
-		}
-		#else
-		return -1;
-		#end
 	}
 }
