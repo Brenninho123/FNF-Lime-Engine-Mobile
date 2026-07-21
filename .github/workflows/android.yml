@@ -65,6 +65,18 @@ jobs:
       - name: Setup Android target
         run: haxelib run lime setup android -y
 
+      - name: Generate Android keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore fnf.keystore \
+            -alias fnf \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass 123456 \
+            -keypass 123456 \
+            -dname "CN=FNF Lime Engine, OU=Dev, O=GlitchMaster, L=Unknown, S=Unknown, C=US"
+
       - name: Build Android release
         run: haxelib run lime build android -release
 
