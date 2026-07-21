@@ -20,20 +20,12 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Install Haxe 4.3.7 (arm64)
+      - name: Install Haxe 4.3.7
         run: |
-          curl -L -o haxe.tar.gz https://github.com/HaxeFoundation/haxe/releases/download/4.3.7/haxe-4.3.7-osx.tar.gz
-          tar -xzf haxe.tar.gz
-          HAXE_DIR=$(find . -maxdepth 1 -type d -iname "haxe*" | head -n 1)
-          echo "Extracted to: $HAXE_DIR"
-          sudo mkdir -p /usr/local/lib/haxe
-          sudo cp -R "$HAXE_DIR"/* /usr/local/lib/haxe/
-          sudo find /usr/local/lib/haxe -maxdepth 1 -name "*.dylib" -exec cp {} /usr/local/lib/ \;
-          sudo ln -sf /usr/local/lib/haxe/haxe /usr/local/bin/haxe
-          sudo ln -sf /usr/local/lib/haxe/haxelib /usr/local/bin/haxelib
+          brew install haxe
+          haxe -version
           mkdir -p ~/haxelib
           haxelib setup ~/haxelib
-          haxe arm64
 
       - name: Install Haxelib dependencies
         run: |
