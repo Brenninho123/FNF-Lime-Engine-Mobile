@@ -1,0 +1,79 @@
+name: Android Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android NDK
+        run: |
+          sdkmanager --install "ndk;25.2.9519653"
+          echo "ANDROID_NDK_ROOT=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> $GITHUB_ENV
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/25.2.9519653" >> $GITHUB_ENV
+
+      - name: Setup Haxe
+        uses: krdlab/setup-haxe@v1
+        with:
+          haxe-version: 4.3.7
+
+      - name: Install Haxelib dependencies
+        run: |
+          haxelib setup ~/haxelib
+          haxelib install lime --quiet
+          haxelib install openfl --quiet
+          haxelib install flixel --quiet
+          haxelib install flixel-tools --quiet
+          haxelib install flixel-addons --quiet
+          haxelib install hxcs --quiet
+          haxelib install tjson --quiet
+          haxelib install thx.core --quiet
+          haxelib install thx.semver --quiet
+          haxelib install format --quiet
+          haxelib install jsonpath --quiet
+          haxelib install flxanimate --quiet
+          haxelib install polymod --quiet
+          haxelib install hxvlc --quiet
+          haxelib run lime setup lime -y
+          haxelib run lime setup openfl -y
+          haxelib run lime setup flixel -y
+
+      - name: Configure Android build tools
+        run: |
+          haxelib run lime config ANDROID_SDK $ANDROID_SDK_ROOT -y
+          haxelib run lime config ANDROID_NDK_ROOT $ANDROID_NDK_ROOT -y
+          haxelib run lime config JAVA_HOME $JAVA_HOME -y
+
+      - name: Build Android release
+        run: haxelib run lime build android -release
+
+      - name: Locate build output
+        id: locate_apk
+        run: |
+          APK_PATH=$(find export -type f -name "*.apk" | head -n 1)
+          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-build
+          path: ${{ steps.locate_apk.outputs.apk_path }}
+          if-no-files-found: error
